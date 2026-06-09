@@ -163,8 +163,8 @@ function buildCard(emp) {
   `;
 
   card.querySelector('.view-btn').addEventListener('click', () => openDetailModal(emp.id));
-  card.querySelector('.edit-btn').addEventListener('click', () => openEditModal(emp.id));
-  card.querySelector('.del-btn').addEventListener('click', () => deleteEmployee(emp.id));
+  card.querySelector('.edit-btn').addEventListener('click', () => requireAuth(() => openEditModal(emp.id)));
+  card.querySelector('.del-btn').addEventListener('click', () => requireAuth(() => deleteEmployee(emp.id)));
 
   return card;
 }
@@ -575,7 +575,7 @@ function bindEvents() {
   $('themeToggle').addEventListener('click', toggleTheme);
 
   // Navbar add
-  $('openAddModal').addEventListener('click', openAddModal);
+  $('openAddModal').addEventListener('click', () => requireAuth(() => openAddModal()));
 
   // Employee modal controls
   $('closeModal').addEventListener('click', () => closeModal('employeeModal'));
@@ -583,7 +583,7 @@ function bindEvents() {
   $('saveEmployee').addEventListener('click', saveEmployee);
 
   // Founder modal
-  $('openFounderSettings').addEventListener('click', openFounderSettings);
+  $('openFounderSettings').addEventListener('click', () => requireAuth(() => openFounderSettings()));
   $('closeFounderModal').addEventListener('click', () => closeModal('founderModal'));
   $('cancelFounderModal').addEventListener('click', () => closeModal('founderModal'));
   $('saveFounder').addEventListener('click', saveFounder);
